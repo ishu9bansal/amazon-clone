@@ -25,8 +25,19 @@ function App() {
           {categories.map(category => <div key={category}>{category}</div>)}
         </div>
       </header>
-      <div>Content</div>
-      <footer className='footer'>Footer</footer>
+      <div>
+        <div>Carousal</div>
+        <div>Deals Section</div>
+        <div>Carousal Section</div>
+        <div>Products Section</div>
+      </div>
+      <footer className='footer'>
+        <div className='btt'>Back to top</div>
+        <div className='contact-link'>Contact links</div>
+        <div className='locale'>Locale selector</div>
+        <div className='others'>Other services</div>
+        <div className='about'>About</div>
+      </footer>
     </div>
   );
 }

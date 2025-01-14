@@ -73,7 +73,20 @@
   padding: 10px;
 }
 
-.footer {
+.footer .btt {
+  background-color: #485768;
+  color: antiquewhite;
+}
+
+
+.footer .contact-link,
+.footer .locale {
+  background-color: #222F3E;
+  color: antiquewhite;
+}
+
+.footer .others,
+.footer .about {
   background-color: #131921;
   color: antiquewhite;
 }
