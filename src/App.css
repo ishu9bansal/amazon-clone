@@ -32,7 +32,60 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.navbar {
+  background-color: #131921;
+  color: white;
+  display: flex;
+}
+
+.navbar-left {
+  display: flex;
+  margin-right: auto;
+}
+
+.navbar-left div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.navbar-right {
+  display: flex;
+  margin-left: auto;
+}
+
+.navbar-right div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.navbar-middle {
+  display: flex;
+  margin: auto;
+}
+
+.navbar-middle div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+.category-bar {
+  background-color: #222F3E;
+  color: antiquewhite;
+  display: flex;
+}
+
+.category-bar div {
+  padding: 10px;
+}
+
+.footer {
+  background-color: #131921;
+  color: antiquewhite;
 }
