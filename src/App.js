@@ -48,9 +48,27 @@ function Home() {
 
 function Cart() {
   return <div className='cart-page'>
-    <div className='cart-section'><div className='shopping-cart'>Shopping Cart</div></div>
-    <div className='summary-section' ><div className='summary-card'>Subtotal: 500</div></div>
+    <div className='cart-section'>
+      <div className='shopping-cart'>
+        <h2>Shopping Cart</h2>
+        <hr />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <h4>Subtotal (3 items): $340</h4>
+      </div>
+    </div>
+    <div className='summary-section' ><div className='summary-card'>Subtotal: $500</div></div>
   </div>;
+}
+
+function CartItem() {
+  return <>
+    Item
+    <hr />
+  </>
 }
 
 function Navbar() {
