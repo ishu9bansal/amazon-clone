@@ -1,5 +1,6 @@
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleItem } from '../slices/cartSlice';
 
 export function Cart() {
     const cartItems = useSelector(state => state.cart.items);
@@ -23,9 +24,13 @@ export function Cart() {
 }
 
 function CartItem({ item }) {
+    const dispatch = useDispatch();
+    const handleToggle = () => {
+        dispatch(toggleItem(item.product_id));
+    }
     return <>
         <div className='cart-item'>
-            <input type='checkbox' />
+            <input type='checkbox' checked={item.selected} onClick={handleToggle} />
             <img src={item.img_link} alt="Cart item" class="cart-item-image" />
             <div className='item-details'>
                 <span><strong>{item.product_name}</strong></span>
