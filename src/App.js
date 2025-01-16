@@ -47,7 +47,10 @@ function Home() {
 }
 
 function Cart() {
-  return <div>Cart</div>;
+  return <div className='cart-page'>
+    <div className='cart-section'><div className='shopping-cart'>Shopping Cart</div></div>
+    <div className='summary-section' ><div className='summary-card'>Subtotal: 500</div></div>
+  </div>;
 }
 
 function Navbar() {

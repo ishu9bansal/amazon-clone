@@ -157,3 +157,47 @@
 .card-button:hover {
   background-color: #0056b3;
 }
+
+.cart-page::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.cart-page {
+  background-color: #EAEDED;
+}
+
+.cart-page .summary-section {
+  float: left;
+  width: 25%;
+  background-color: #EAEDED;
+}
+
+.cart-page .cart-section {
+  float: left;
+  width: 75%;
+  background-color: #EAEDED;
+}
+
+
+.summary-card {
+  margin: 20px;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shopping-cart {
+  margin: 20px;
+  background: white;
+  height: 1000px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
