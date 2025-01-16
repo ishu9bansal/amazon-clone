@@ -48,17 +48,14 @@ function Home() {
 }
 
 function Cart() {
+  const cartItems = products.slice(0, 4).map(ele => ({ ...ele, quantity: 1 }));
   return <div className='cart-page'>
     <div className='cart-section'>
       <div className='shopping-cart'>
         <h1 className='cart-title'>Shopping Cart</h1>
         <div className='cart-price-label'>Price</div>
         <hr />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
+        {cartItems.map(item => <CartItem key={item.product_id} item={item} />)}
         <h4 className='cart-subtotal'>Subtotal (3 items): $340</h4>
       </div>
     </div>
@@ -71,25 +68,25 @@ function Cart() {
   </div>;
 }
 
-function CartItem() {
+function CartItem({ item }) {
   return <>
     <div className='cart-item'>
       <input type='checkbox' />
-      <img src={proImg} alt="Card Image" class="cart-item-image" />
+      <img src={item.img_link} alt="Card Image" class="cart-item-image" />
       <div className='item-details'>
-        <span><strong>Title</strong></span>
-        <span>Details</span>
+        <span><strong>{item.product_name}</strong></span>
+        <span>{item.category}</span>
         <div className='cart-item-quantity'>
           <button>-</button>
-          <div>2</div>
+          <div>{item.quantity}</div>
           <button>+</button>
         </div>
 
       </div>
       <div className='item-price'>
-        <span><strong>Price</strong></span>
-        <span>MRP</span>
-        <div>Deal</div>
+        <span><strong>{item.discounted_price}</strong></span>
+        <span>M.R.P.: <s>{item.actual_price}</s></span>
+        <div>-{item.discount_percentage}</div>
 
       </div>
     </div>
