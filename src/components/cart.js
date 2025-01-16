@@ -1,8 +1,8 @@
 
-import { products } from '../data';
+import { useSelector } from 'react-redux';
 
 export function Cart() {
-    const cartItems = products.slice(0, 4).map(ele => ({ ...ele, quantity: 1 }));
+    const cartItems = useSelector(state => state.cart.items);
     return <div className='cart-page'>
         <div className='cart-section'>
             <div className='shopping-cart'>
