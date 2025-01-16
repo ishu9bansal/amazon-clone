@@ -2,6 +2,7 @@ import './App.css';
 import bgImg from './assets/carousalImg8.jpg';
 import proImg from './assets/amazonproduct1.jpg';
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { products } from './data';
 
 const categories = ["All", "Fresh", "MX Player", "Sell", "Lists", "Amazon Pay"];
 function App() {
@@ -116,19 +117,19 @@ function Navbar() {
 }
 
 function ProductSection() {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8];
   return <div className='product-section'>
-    {arr.map(ele => <ProductCard key={ele} />)}
+    {products.map(ele => <ProductCard key={ele.product_id} product={ele} />)}
   </div>;
 }
 
-function ProductCard() {
+function ProductCard({ product }) {
   return <div class="card">
-    <img src={proImg} alt="Card Image" class="card-image" />
+    <img src={product.img_link} alt="Card Image" class="card-image" />
     <div class="card-content">
-      <h2 class="card-title">Card Title</h2>
-      <p class="card-description">This is a description of the card. It gives more detail about the content.</p>
-      <button class="card-button">Learn More</button>
+      <h4 class="card-title">{product.product_name}</h4>
+      <p class="card-description">{product.category}</p>
+      <p>{product.discounted_price}</p>
+      <button class="card-button">Add to cart</button>
     </div>
   </div>
 }
