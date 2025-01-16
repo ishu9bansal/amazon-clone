@@ -1,6 +1,6 @@
 
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleItem } from '../slices/cartSlice';
+import { addItem, changeQuantity, removeItem, toggleItem } from '../slices/cartSlice';
 
 export function Cart() {
     const cartItems = useSelector(state => state.cart.items);
@@ -25,8 +25,19 @@ export function Cart() {
 
 function CartItem({ item }) {
     const dispatch = useDispatch();
+    const id = item.product_id;
+
+
     const handleToggle = () => {
-        dispatch(toggleItem(item.product_id));
+        dispatch(toggleItem(id));
+    }
+
+    const handleAdd = () => {
+        dispatch(changeQuantity({ id, increament: 1 }));
+    }
+
+    const handleRemove = () => {
+        dispatch(changeQuantity({ id, increament: -1 }));
     }
     return <>
         <div className='cart-item'>
@@ -36,9 +47,9 @@ function CartItem({ item }) {
                 <span><strong>{item.product_name}</strong></span>
                 <span>{item.category}</span>
                 <div className='cart-item-quantity'>
-                    <button>-</button>
+                    <button onClick={handleRemove}>-</button>
                     <div>{item.quantity}</div>
-                    <button>+</button>
+                    <button onClick={handleAdd}>+</button>
                 </div>
 
             </div>
