@@ -70,15 +70,9 @@ function Navbar() {
 }
 
 function ProductSection() {
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8];
   return <div className='product-section'>
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
+    {arr.map(ele => <ProductCard key={ele} />)}
   </div>;
 }
 
