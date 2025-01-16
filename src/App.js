@@ -50,23 +50,48 @@ function Cart() {
   return <div className='cart-page'>
     <div className='cart-section'>
       <div className='shopping-cart'>
-        <h2>Shopping Cart</h2>
+        <h1 className='cart-title'>Shopping Cart</h1>
+        <div className='cart-price-label'>Price</div>
         <hr />
         <CartItem />
         <CartItem />
         <CartItem />
         <CartItem />
         <CartItem />
-        <h4>Subtotal (3 items): $340</h4>
+        <h4 className='cart-subtotal'>Subtotal (3 items): $340</h4>
       </div>
     </div>
-    <div className='summary-section' ><div className='summary-card'>Subtotal: $500</div></div>
+    <div className='summary-section' >
+      <div className='summary-card'>
+        <div>Subtotal (2 items): <strong>$500</strong></div>
+        <button>Proceed to Buy</button>
+      </div>
+    </div>
   </div>;
 }
 
 function CartItem() {
   return <>
-    Item
+    <div className='cart-item'>
+      <input type='checkbox' />
+      <img src={proImg} alt="Card Image" class="cart-item-image" />
+      <div className='item-details'>
+        <span><strong>Title</strong></span>
+        <span>Details</span>
+        <div className='cart-item-quantity'>
+          <button>-</button>
+          <div>2</div>
+          <button>+</button>
+        </div>
+
+      </div>
+      <div className='item-price'>
+        <span><strong>Price</strong></span>
+        <span>MRP</span>
+        <div>Deal</div>
+
+      </div>
+    </div>
     <hr />
   </>
 }

@@ -183,6 +183,8 @@
 
 .summary-card {
   margin: 20px;
+  padding: 16px;
+  gap: 20px;
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -193,7 +195,49 @@
 
 .shopping-cart {
   margin: 20px;
+  padding: 16px;
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.cart-item-image {
+  height: 150px;
+}
+
+.item-details {
+  padding: 16px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-price {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: end;
+}
+
+.cart-item-quantity {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.cart-title {
+  text-align: left
+}
+
+.cart-price-label {
+  text-align: right;
+}
+
+.cart-subtotal {
+  text-align: right;
 }
