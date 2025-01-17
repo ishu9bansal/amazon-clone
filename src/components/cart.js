@@ -1,8 +1,9 @@
 
-import { products } from '../data';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeQuantity, toggleItem } from '../slices/cartSlice';
 
 export function Cart() {
-    const cartItems = products.slice(0, 4).map(ele => ({ ...ele, quantity: 1 }));
+    const cartItems = useSelector(state => state.cart.items);
     return <div className='cart-page'>
         <div className='cart-section'>
             <div className='shopping-cart'>
@@ -23,17 +24,29 @@ export function Cart() {
 }
 
 function CartItem({ item }) {
+    const dispatch = useDispatch();
+    const id = item.product_id;
+    const handleToggle = () => {
+        dispatch(toggleItem(id));
+    };
+
+    const handleDecrement = () => {
+        dispatch(changeQuantity({ id, increament: -1 }));
+    };
+    const handleIncrement = () => {
+        dispatch(changeQuantity({ id, increament: 1 }));
+    };
     return <>
         <div className='cart-item'>
-            <input type='checkbox' />
+            <input type='checkbox' checked={item.selected} onChange={handleToggle} />
             <img src={item.img_link} alt="Cart item" class="cart-item-image" />
             <div className='item-details'>
                 <span><strong>{item.product_name}</strong></span>
                 <span>{item.category}</span>
                 <div className='cart-item-quantity'>
-                    <button>-</button>
+                    <button onClick={handleDecrement}>-</button>
                     <div>{item.quantity}</div>
-                    <button>+</button>
+                    <button onClick={handleIncrement}>+</button>
                 </div>
 
             </div>
