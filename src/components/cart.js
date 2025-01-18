@@ -1,8 +1,9 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { changeQuantity, toggleItem } from '../slices/cartSlice';
+import { NavLayout } from './navbar';
 
-export function Cart() {
+function Cart() {
     const cartItems = useSelector(state => state.cart.items);
     return <div className='cart-page'>
         <div className='cart-section'>
@@ -64,3 +65,9 @@ function CartItem({ item }) {
     </>
 }
 
+
+export default function () {
+    return <NavLayout>
+        <Cart />
+    </NavLayout>;
+}

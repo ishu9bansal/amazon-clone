@@ -1,7 +1,8 @@
 import bgImg from '../assets/carousalImg8.jpg';
+import { NavLayout } from './navbar';
 import { ProductSection } from "./products";
 
-export function Home() {
+function Home() {
     return <div>
         <div className='bg-image'>
             <img src={bgImg} alt='carousal' style={{ width: '100%' }}></img>
@@ -12,4 +13,10 @@ export function Home() {
             <ProductSection />
         </div>
     </div>;
+}
+
+export default function () {
+    return <NavLayout>
+        <Home />
+    </NavLayout>;
 }
