@@ -1,6 +1,5 @@
 import './App.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { Navbar, NavLayout } from './components/navbar';
 import Home from './components/home';
 import Cart from './components/cart';
 import Profile from './components/profile';
