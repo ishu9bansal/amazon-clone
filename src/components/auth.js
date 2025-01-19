@@ -2,16 +2,26 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setCurrentUser } from '../slices/authSlice';
 import { useState } from 'react';
+import axios from 'axios';
 
 export function Login() {
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleLogin = (e) => {
         e.preventDefault();
-        dispatch(setCurrentUser({ username }));
-        navigate('/profile');
+        setError('');
+        axios.post('http://localhost:5001/login', { username, password })
+            .then(response => {
+                const { token, refreshToken } = response?.data;
+                dispatch(setCurrentUser({ token, refreshToken, username }));
+                navigate('/profile');
+            }).catch(err => {
+                const errMessage = err?.response?.data?.message || "Something went wrong";
+                setError(errMessage);
+            });
     };
     return (
         <>
@@ -27,6 +37,12 @@ export function Login() {
                 </div>
                 <input type="submit" value="Login" className="submit-button" />
             </form>
+
+            {
+                error && <div className='auth-error'>
+                    {error}
+                </div>
+            }
 
             <div className="auth-footer">
                 Don't have an account? <Link to="/register">Register</Link>
