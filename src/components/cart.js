@@ -1,7 +1,9 @@
 
 import { useDispatch, useSelector } from 'react-redux';
-import { changeQuantity, toggleItem } from '../slices/cartSlice';
+import { changeQuantity, setCartItems, toggleItem } from '../slices/cartSlice';
 import { NavLayout } from './navbar';
+import axios from 'axios';
+import { usePatchCall } from '../hooks';
 
 function Cart() {
     const cartItems = useSelector(state => state.cart.items);
@@ -25,20 +27,19 @@ function Cart() {
 }
 
 function CartItem({ item }) {
-    const dispatch = useDispatch();
     const id = item.product_id;
-
+    const makePatchRequest = usePatchCall();
 
     const handleToggle = () => {
-        dispatch(toggleItem(id));
+        makePatchRequest('http://localhost:5050/api/cart/toggle', { product_id: id });
     }
 
     const handleAdd = () => {
-        dispatch(changeQuantity({ id, increament: 1 }));
+        makePatchRequest('http://localhost:5050/api/cart/quantity', { product_id: id, increament: 1 });
     }
 
     const handleRemove = () => {
-        dispatch(changeQuantity({ id, increament: -1 }));
+        makePatchRequest('http://localhost:5050/api/cart/quantity', { product_id: id, increament: -1 });
     }
     return <>
         <div className='cart-item'>

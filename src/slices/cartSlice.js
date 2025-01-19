@@ -7,6 +7,9 @@ const cartSlice = createSlice({
         items: products.slice(0, 4).map(ele => ({ ...ele, quantity: 1, selected: true })),
     },
     reducers: {
+        setCartItems: (state, action) => {
+            state.items = action.payload;
+        },
         addItem: (state, action) => {
             const item = action.payload;
             state.items.push({ ...item, selected: true, quantity: 1 });
@@ -35,6 +38,6 @@ const cartSlice = createSlice({
     }
 });
 
-export const { addItem, removeItem, toggleItem, changeQuantity } = cartSlice.actions;
+export const { addItem, removeItem, toggleItem, changeQuantity, setCartItems } = cartSlice.actions;
 
 export default cartSlice.reducer;

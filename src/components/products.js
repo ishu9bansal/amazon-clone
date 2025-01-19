@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { products } from '../data';
-import { addItem, changeQuantity } from '../slices/cartSlice';
+import { addItem, changeQuantity, setCartItems } from '../slices/cartSlice';
+import axios from 'axios';
+import { usePatchCall } from '../hooks';
 
 export function ProductSection() {
     return <div className='product-section'>
@@ -8,19 +10,37 @@ export function ProductSection() {
     </div>;
 }
 
+
+
 function ProductCard({ product }) {
     const cartQuantity = useSelector(state => state.cart.items.find(ele => ele.product_id === product.product_id)?.quantity);
+    const token = useSelector(state => state.auth.currentUser?.token);
     const dispatch = useDispatch();
+    const makePatchRequest = usePatchCall();
+
     const handleAddToCart = () => {
-        dispatch(addItem(product));
+        axios.post('http://localhost:5050/api/cart', {
+            item: product,
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                const items = response?.data?.cart || [];
+                dispatch(setCartItems(items));
+                console.log('added to cart');
+            })
+            .catch(err => console.error(err));
+        // dispatch(addItem(product));
     };
     const id = product.product_id;
     const handleAdd = () => {
-        dispatch(changeQuantity({ id, increament: 1 }));
+        makePatchRequest('http://localhost:5050/api/cart/quantity', { product_id: id, increament: 1 });
     }
 
     const handleRemove = () => {
-        dispatch(changeQuantity({ id, increament: -1 }));
+        makePatchRequest('http://localhost:5050/api/cart/quantity', { product_id: id, increament: -1 });
     }
     return <div class="card">
         <img src={product.img_link} alt="product" class="card-image" />
