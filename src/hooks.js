@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCartItems } from "./slices/cartSlice";
 import axios from "axios";
 
 export function usePatchCall() {
     const dispatch = useDispatch();
-    const token = useSelector(state => state.auth.currentUser?.token);
+    const token = localStorage.getItem('token');
 
     const makePatchRequest = (url, body) => {
         axios.patch(url, body, {

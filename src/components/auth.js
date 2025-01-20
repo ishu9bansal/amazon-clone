@@ -17,7 +17,9 @@ export function Login() {
             .then(response => {
                 console.log(response);
                 const { token, refreshToken } = response?.data;
-                dispatch(setCurrentUser({ token, refreshToken, username }));
+                dispatch(setCurrentUser({ username }));
+                localStorage.setItem('token', token);
+                localStorage.setItem('refreshToken', refreshToken);
                 navigate('/profile');
             }).catch(err => {
                 console.log(error);
@@ -48,6 +50,10 @@ export function Login() {
 
             <div className="auth-footer">
                 Don't have an account? <Link to="/register">Register</Link>
+                <br />
+                <Link to="/cart">Cart</Link>
+                <br />
+                <Link to="/">Home</Link>
             </div>
         </>
     );

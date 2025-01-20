@@ -8,15 +8,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setCartItems } from './slices/cartSlice';
+import { setCurrentUser } from './slices/authSlice';
 
 function App() {
   const user = useSelector(state => state.auth.currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (user && user.token) {
+    const token = localStorage.getItem('token');
+    if (user) {
       axios.get('http://localhost:5050/api/cart', {
         headers: {
-          Authorization: `Bearer ${user.token}`
+          Authorization: `Bearer ${token}`
         }
       })
         .then(response => {
@@ -26,7 +28,19 @@ function App() {
         })
         .catch(err => console.error(err));
     }
+    return () => {
+      dispatch(setCartItems([]));
+    }
   }, [user]);
+
+  useEffect(() => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    axios.post('http://localhost:5001/user', { token: refreshToken })
+      .then(response => {
+        const user = response.data;
+        dispatch(setCurrentUser(user));
+      }).catch(err => console.error(err));
+  }, []);
   return (
     <div className='App'>
       <Router>
