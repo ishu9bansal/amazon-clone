@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeQuantity, setCartItems, toggleItem } from '../slices/cartSlice';
 import { NavLayout } from './navbar';
 import axios from 'axios';
-import { usePatchCall } from '../hooks';
+import { usePatchCall, useRetryCall } from '../hooks';
 
 function Cart() {
     const cartItems = useSelector(state => state.cart.items);
@@ -28,30 +28,46 @@ function Cart() {
 
 function CartItem({ item }) {
     const id = item.product_id;
-    const makePatchRequest = usePatchCall();
+    // const makePatchRequest = usePatchCall();
+    const [loading, makePatchRequest] = useRetryCall('patch');
+    const dispatch = useDispatch();
 
     const handleToggle = () => {
-        makePatchRequest('http://localhost:5050/api/cart/toggle', { product_id: id });
+        makePatchRequest('http://localhost:5050/api/cart/toggle', { product_id: id })
+            .then(response => {
+                const items = response?.data?.cart || [];
+                dispatch(setCartItems(items));
+            }).catch(err => console.error(err));
     }
 
     const handleAdd = () => {
-        makePatchRequest('http://localhost:5050/api/cart/quantity', { product_id: id, increament: 1 });
+        makePatchRequest(
+            'http://localhost:5050/api/cart/quantity',
+            { product_id: id, increament: 1 },
+        ).then(response => {
+            const items = response?.data?.cart || [];
+            dispatch(setCartItems(items));
+        }).catch(err => console.error(err));
     }
 
     const handleRemove = () => {
-        makePatchRequest('http://localhost:5050/api/cart/quantity', { product_id: id, increament: -1 });
+        makePatchRequest('http://localhost:5050/api/cart/quantity', { product_id: id, increament: -1 })
+            .then(response => {
+                const items = response?.data?.cart || [];
+                dispatch(setCartItems(items));
+            }).catch(err => console.error(err));
     }
     return <>
         <div className='cart-item'>
-            <input type='checkbox' checked={item.selected} onClick={handleToggle} />
+            <input disabled={loading} type='checkbox' checked={item.selected} onClick={handleToggle} />
             <img src={item.img_link} alt="Cart item" class="cart-item-image" />
             <div className='item-details'>
                 <span><strong>{item.product_name}</strong></span>
                 <span>{item.category}</span>
                 <div className='cart-item-quantity'>
-                    <button onClick={handleRemove}>-</button>
+                    <button disabled={loading} onClick={handleRemove}>-</button>
                     <div>{item.quantity}</div>
-                    <button onClick={handleAdd}>+</button>
+                    <button disabled={loading} onClick={handleAdd}>+</button>
                 </div>
 
             </div>
