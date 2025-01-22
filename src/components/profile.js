@@ -15,7 +15,7 @@ function Profile() {
         localStorage.removeItem('refreshToken');
         axios.post('http://localhost:5001/logout', { token: refreshToken })
             .then(response => {
-                navigate('/login');
+                // navigate('/login');
             })
             .catch(err => console.error(err))
     }

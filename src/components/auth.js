@@ -1,8 +1,18 @@
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { setCurrentUser } from '../slices/authSlice';
 import { useState } from 'react';
 import axios from 'axios';
+
+export function Auth() {
+    const user = useSelector(state => state.auth.currentUser);
+    const location = useLocation();
+    return (
+        user
+            ? <Outlet />
+            : <Navigate to='/login' state={{ from: location.pathname }} />
+    );
+}
 
 export function Login() {
     const [username, setUsername] = useState("");
@@ -10,6 +20,8 @@ export function Login() {
     const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const nextPage = location.state?.from || '/profile';
     const handleLogin = (e) => {
         e.preventDefault();
         setError('');
@@ -20,7 +32,7 @@ export function Login() {
                 dispatch(setCurrentUser({ username }));
                 localStorage.setItem('token', token);
                 localStorage.setItem('refreshToken', refreshToken);
-                navigate('/profile');
+                navigate(nextPage);
             }).catch(err => {
                 console.log(error);
                 const errMessage = err?.response?.data?.message || "Something went wrong";
